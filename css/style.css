@@ -1,0 +1,394 @@
+/* === GENERAL === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* === LAYOUT === */
+.full-width-line {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.content-wrapper {
+    margin-left: 20px;
+}
+
+/* === CARRUSEL === */
+.custom-book-img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-item .text-start {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    border-radius: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 0.7;
+    background: transparent !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    filter: invert(1) brightness(1.5);
+}
+
+/* === BIENVENIDO === */
+.welcome-header {
+    margin-left: 20px;
+}
+
+.user-data {
+    margin-left: 20px;
+}
+
+.books-section {
+    margin-left: 20px;
+}
+
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.book-card {
+    padding: 12px;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    background: #fff;
+    min-width: 200px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-title {
+    font-weight: bold;
+    font-size: 0.95em;
+    margin-bottom: 4px;
+}
+
+.book-author {
+    color: #666;
+    font-size: 0.85em;
+}
+
+.no-books-message {
+    color: #999;
+    font-style: italic;
+}
+
+/* === BOTONES === */
+.btn-chat-toggle {
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background 0.2s ease;
+}
+
+.btn-chat-toggle:hover {
+    background: #0056b3;
+}
+
+.btn-chat-close {
+    padding: 4px 8px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+}
+
+.btn-chat-close:hover {
+    background: #c82333;
+}
+
+.btn-chat-send {
+    padding: 8px 16px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.btn-chat-send:hover {
+    background: #218838;
+}
+
+.btn-primary-buy {
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.95em;
+}
+
+.btn-primary-buy:hover {
+    background: #0056b3;
+}
+
+.btn-secondary-disabled {
+    padding: 8px 16px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: not-allowed;
+    font-size: 0.95em;
+    opacity: 0.6;
+}
+
+/* === CHAT === */
+.chat-widget {
+    display: none;
+    max-width: 700px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-widget.open {
+    display: block;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.chat-lang-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.chat-lang-selector label {
+    font-weight: 500;
+}
+
+.chat-lang-selector select {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.chat-box {
+    height: 250px;
+    overflow: auto;
+    background: #fafafa;
+    border: 1px solid #eee;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.chat-message {
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9em;
+}
+
+.chat-message:last-child {
+    border-bottom: none;
+}
+
+.chat-time {
+    color: #888;
+    font-size: 0.85em;
+}
+
+.chat-user {
+    font-weight: bold;
+    color: #333;
+}
+
+.chat-text {
+    color: #555;
+}
+
+.chat-lang-badge {
+    color: #888;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.chat-input-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input-wrapper input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.chat-input-wrapper input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* === SEPARADORES === */
+.full-width-separator {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* === FOOTER === */
+footer {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #f8f9fa;
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+footer p {
+    color: #666;
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* === ENLACES === */
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .carousel-item {
+        min-height: 300px;
+    }
+
+    .carousel-item .text-start {
+        max-width: 100%;
+    }
+
+    .chat-widget {
+        max-width: 100%;
+    }
+
+    .books-container {
+        gap: 12px;
+    }
+
+    .book-card {
+        min-width: 150px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-wrapper,
+    .welcome-header,
+    .user-data,
+    .books-section {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .btn-chat-toggle,
+    .btn-primary-buy {
+        width: 100%;
+        padding: 10px 12px;
+    }
+
+    .chat-input-wrapper {
+        flex-direction: column;
+    }
+
+    .chat-input-wrapper input {
+        width: 100%;
+    }
+}

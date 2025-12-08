@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "titulo": "El principito",
+        "autor": "Antoine de Saint-Exupéry",
+        "stock": 5
+    },
+    {
+        "id": 2,
+        "titulo": "Cien años de soledad",
+        "autor": "Gabriel García Márquez",
+        "stock": 3
+    },
+    {
+        "id": 3,
+        "titulo": "Don Quijote",
+        "autor": "Miguel de Cervantes",
+        "stock": 2
+    }
+]
