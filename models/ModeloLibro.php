@@ -1,7 +1,7 @@
 <?php
 
 ini_set('display_errors', 1);
-ini_set('controller_override', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once "BBDD.php";
@@ -280,7 +280,8 @@ class Libro
                 trim($img),
                 $id
             ]);
-            return $upd->rowCount() > 0;
+            // Si la ejecución se realizó sin excepciones, consideramos éxito.
+            return true;
         } catch (Exception $e) {
             return false;
         }
@@ -342,6 +343,21 @@ class Libro
             return ['ok' => false, 'msg' => 'No se pudo verificar la columna tras crearla.', 'sql' => $sql];
         } catch (\PDOException $e) {
             return ['ok' => false, 'msg' => $e->getMessage(), 'sql' => $sql];
+        }
+    }
+
+    // Actualizar únicamente el número de ejemplares (asegura no negativo)
+    public function setEjemplares(int $id, int $count): bool
+    {
+        if (!$this->db || $id <= 0) return false;
+        $count = max(0, intval($count));
+        try {
+            $upd = $this->db->prepare('UPDATE libros SET ejemplares = ? WHERE id = ?');
+            $upd->execute([$count, $id]);
+            // Considerar éxito si la ejecución no lanzó excepciones.
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
     }
 }

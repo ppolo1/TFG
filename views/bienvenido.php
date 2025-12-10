@@ -89,7 +89,7 @@ if (isset($_SESSION['nombre'])) {
                 // Botón Editar abre modal de ejemplares
                 echo '<button onclick="openEditEjemplaresModal(' . $tid . ', ' . $tej . ')" style="padding:6px 10px;background:#007bff;color:white;border-radius:4px;cursor:pointer;border:none;margin-right:6px;">Editar</button>';
                 // Eliminar mediante enlace
-                echo '<a href="' . htmlspecialchars($baseUrl . '/controls/controlAdmin.php?action=delete&id=' . $tid) . '" onclick="return confirm(\'¿Eliminar este libro?\');" style="padding:6px 10px;background:#dc3545;color:white;border-radius:4px;text-decoration:none;display:inline-block;">Eliminar</a>';
+                echo '<a href="' . htmlspecialchars($baseUrl . '/controls/controlAdmin.php?action=delete&id=' . $tid . '&session_id=' . urlencode(session_id())) . '" onclick="return confirm(\'¿Eliminar este libro?\');" style="padding:6px 10px;background:#dc3545;color:white;border-radius:4px;text-decoration:none;display:inline-block;">Eliminar</a>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -105,6 +105,7 @@ if (isset($_SESSION['nombre'])) {
                 <h3>Crear nuevo libro</h3>
                 <form method="POST" action="<?php echo htmlspecialchars($baseUrl . '/controls/controlAdmin.php'); ?>" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="create">
+                    <input type="hidden" name="session_id" value="<?php echo htmlspecialchars(session_id()); ?>">
 
                     <div style="margin-bottom:12px;">
                         <label><strong>Título:</strong></label>
@@ -151,6 +152,7 @@ if (isset($_SESSION['nombre'])) {
                 <h3>Editar ejemplares</h3>
                 <form method="POST" action="<?php echo htmlspecialchars($baseUrl . '/controls/controlAdmin.php'); ?>">
                     <input type="hidden" name="action" value="update_ejemplares">
+                    <input type="hidden" name="session_id" value="<?php echo htmlspecialchars(session_id()); ?>">
                     <input type="hidden" name="id" id="editEjId">
                     <!-- campos ocultos para preservar datos existentes -->
                     <input type="hidden" name="titulo" id="editEjTitulo">
