@@ -213,19 +213,32 @@ if (isset($_SESSION['nombre'])) {
         <?php
         // No mostrar el resto del contenido para admin
     } else {
-        echo '<br><br>';
-        echo 'Tus datos';
-        echo '<br>';
-        echo 'Nombre: ' . htmlspecialchars($_SESSION['nombre']);
-        echo '<br>';
-        echo 'Apellido: ' . htmlspecialchars($_SESSION['apellido'] ?? '');
-        echo '<br>';
-        echo 'Email: ' . htmlspecialchars($_SESSION['email'] ?? '');
-        echo '<br>';
-        // usar $baseUrl también en los enlaces de eliminar/cerrar sesión para evitar rutas incorrectas
-        echo '<a href="' . htmlspecialchars($baseUrl . '/delete') . '">Eliminar Cuenta</a>';
-        echo '&nbsp; &nbsp;';
-        echo '<a href="' . htmlspecialchars($baseUrl . '/logout') . '">Cerrar sesión</a>';
+        // Mostrar datos del usuario en formato similar al carrusel de libros
+        echo '<div style="margin-left:20px;">';
+        echo '<h3>Tus datos</h3>';
+        echo '<div class="d-flex flex-column flex-md-row align-items-center gap-3 p-3 justify-content-center" style="max-width:800px;margin:0 auto;">';
+        
+        // Imagen placeholder para el usuario
+        echo '<div class="custom-book-img" style="display:flex;align-items:center;justify-content:center;background:#f0f0f0;border-radius:8px;width:300px;height:450px;">';
+        echo '<div style="text-align:center;color:#666;">';
+        echo '<strong>' . htmlspecialchars($_SESSION['nombre']) . '</strong>';
+        echo '</div>';
+        echo '</div>';
+        
+        // Información del usuario
+        echo '<div class="text-start text-dark bg-light bg-opacity-75 rounded p-3" style="max-width:600px;">';
+            echo '<p class="mb-1"><strong>Usuario:</strong>' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido'] ?? '') . '</p>';
+            echo '<p class="mb-1"><strong>Email:</strong> ' . htmlspecialchars($_SESSION['email'] ?? '') . '</p>';
+            
+            // Acciones
+            echo '<div class="mt-3">';
+                echo '<a href="' . htmlspecialchars($baseUrl . '/delete') . '" class="btn btn-danger me-2">Eliminar Cuenta</a>';
+                echo '<a href="' . htmlspecialchars($baseUrl . '/logout') . '" class="btn btn-secondary me-2">Cerrar sesión</a>';
+                echo '<a href="' . htmlspecialchars($baseUrl . '/changePass') . '" class="btn btn-primary me-2">Cambiar contraseña</a>';
+            echo '</div>';
+        echo '</div>';
+        
+        echo '</div>';
         echo '</div>';
 
         echo '<hr style="margin:20px 0;border:none;border-top:1px solid #ddd;width:100%;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;">';

@@ -9,6 +9,14 @@ require_once 'header.php';
 
 
 <!-- Carrusel de Bootstrap -->
+<style>
+.carousel-indicators button {
+    background-color: transparent !important;
+}
+.carousel-indicators .active {
+    background-color: #333 !important; /* Un poco más claro para el activo */
+}
+</style>
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
         <?php require_once __DIR__ . '/../controls/controlLibros.php'; ?>

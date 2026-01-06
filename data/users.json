@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pablo",
+        "apellido": "Polo",
+        "email": "pppcuenca@gmail.com",
+        "passwd": "123456",
+        "is_admin": 1
+    },
+    {
+        "id": 2,
+        "nombre": "Sarah",
+        "apellido": "Gonzalez",
+        "email": "gogkergm@ninc",
+        "passwd": "1234",
+        "is_admin": 0
+    }
+]

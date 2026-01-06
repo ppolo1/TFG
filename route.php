@@ -32,6 +32,9 @@ switch ($method) {
             case '/delete':
                 require_once 'controls/controlDelete.php';
                 break;
+            case '/changePass':
+                require_once 'views/changePass.php';
+                break;
         }
     case 'POST':
         switch ($req) {

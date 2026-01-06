@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title></title>
+    <title>Librería Online</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- No se añade CSS de Bootstrap, solo formato con clases Bootstrap -->
@@ -17,7 +17,7 @@
     <?php session_start(); ?>
 
     <header class="bg-primary text-white mb-4 p-3">
-        <h1 class="mb-3">My Website</h1>
+        <h1 class="mb-3">Librería Online</h1>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-0">
             <div class="container-fluid p-0">
                 <a class="navbar-brand" href="/">Home</a>
