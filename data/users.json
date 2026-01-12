@@ -5,7 +5,7 @@
         "apellido": "Polo",
         "email": "pppcuenca@gmail.com",
         "passwd": "123456",
-        "is_admin": 1
+        "is_admin": 0
     },
     {
         "id": 2,
@@ -14,5 +14,13 @@
         "email": "gogkergm@ninc",
         "passwd": "1234",
         "is_admin": 0
+    },
+    {
+        "id": 3,
+        "nombre": "Admin",
+        "apellido": "",
+        "email": "admin@admin.com",
+        "passwd": "Adm1n",
+        "is_admin": 1
     }
 ]

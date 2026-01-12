@@ -1,53 +1,293 @@
-[
-    {
-        "user": "Pablo",
-        "text": "Hola",
-        "lang": "es",
-        "time": "21:28"
-    },
-    {
-        "user": "Pablo",
-        "text": "Hello",
-        "lang": "en",
-        "time": "21:28"
-    },
-    {
-        "user": "Pablo",
-        "text": "Hi",
-        "lang": "en",
-        "time": "21:28"
-    },
-    {
-        "user": "Pablo",
-        "text": "Hola",
-        "lang": "en",
-        "time": "21:28"
-    },
-    {
-        "user": "Pablo",
-        "text": "Hola",
-        "lang": "fr",
-        "time": "21:28"
-    },
-    {
-        "user": "Pablo",
-        "text": "Hello",
-        "lang": "es",
-        "time": "07:12",
-        "translations": []
-    },
-    {
-        "user": "Pablo",
-        "text": "Hola",
-        "lang": "es",
-        "time": "09:28",
-        "translations": []
-    },
-    {
-        "user": "Sarah",
-        "text": "Hola",
-        "lang": "es",
-        "time": "09:28",
-        "translations": {}
-    }
-]
+{
+    "1": [
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "es",
+            "time": "21:28",
+            "translations": {
+                "en": "Hello"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hello",
+            "lang": "en",
+            "time": "21:28",
+            "0": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "08:25",
+                "translations": []
+            },
+            "1": {
+                "user": "Sarah",
+                "text": "hello",
+                "lang": "en",
+                "time": "08:25",
+                "translations": []
+            },
+            "2": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:41",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "3": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:41",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "4": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:41",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "5": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:41",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "6": {
+                "user": "Sarah",
+                "text": "Hello",
+                "lang": "en",
+                "time": "19:47",
+                "translations": [],
+                "pending_translations": true
+            },
+            "7": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:48",
+                "translations": [],
+                "pending_translations": true
+            },
+            "8": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:51",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "9": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:51",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "10": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:51",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "11": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:52",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "12": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "19:54",
+                "translations": {
+                    "es": "Hola",
+                    "en": "",
+                    "fr": "",
+                    "de": ""
+                }
+            },
+            "translations": {
+                "es": "Hola"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hi",
+            "lang": "en",
+            "time": "21:28",
+            "0": {
+                "user": "Pablo",
+                "text": "Hola",
+                "lang": "es",
+                "time": "08:26",
+                "translations": []
+            },
+            "translations": {
+                "es": "Hola"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "en",
+            "time": "21:28",
+            "translations": {
+                "es": "hola"
+            },
+            "text_translated": "hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "fr",
+            "time": "21:28",
+            "translations": {
+                "en": "Hello",
+                "es": "Hola"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hello",
+            "lang": "es",
+            "time": "07:12",
+            "translations": {
+                "en": "Hello"
+            },
+            "text_translated": "Hello"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "es",
+            "time": "09:28",
+            "translations": {
+                "en": "Hello"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Sarah",
+            "text": "Hola",
+            "lang": "es",
+            "time": "09:28",
+            "translations": {
+                "en": "Hello"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "es",
+            "time": "19:59",
+            "translations": {
+                "es": "Hola",
+                "en": "",
+                "fr": "",
+                "de": ""
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Pruebas",
+            "lang": "es",
+            "time": "20:03",
+            "translations": {
+                "es": "Pruebas",
+                "en": "",
+                "fr": "",
+                "de": ""
+            },
+            "text_translated": "Pruebas"
+        },
+        {
+            "user": "Pablo",
+            "text": "Hola",
+            "lang": "es",
+            "time": "20:03",
+            "translations": {
+                "es": "Hola",
+                "en": "Hello",
+                "fr": "Bonjour",
+                "de": "Hallo"
+            },
+            "text_translated": "Hola"
+        },
+        {
+            "user": "Pablo",
+            "text": "Pruebas con Google",
+            "lang": "es",
+            "time": "20:11",
+            "translations": {
+                "es": "Pruebas con Google",
+                "en": "Testing with Google",
+                "fr": "Tester avec Google",
+                "de": "Testen mit Google"
+            }
+        },
+        {
+            "user": "Sarah",
+            "text": "It looks fine",
+            "lang": "en",
+            "time": "20:11",
+            "translations": {
+                "es": "se ve bien",
+                "en": "It looks fine",
+                "fr": "Ça a l'air bien",
+                "de": "Es sieht gut aus"
+            }
+        }
+    ]
+}

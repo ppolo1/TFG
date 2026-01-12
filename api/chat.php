@@ -10,14 +10,17 @@ $base = realpath(__DIR__ . '/..') ?: (__DIR__ . '/..');
 $dataDir = $base . '/data';
 if (!is_dir($dataDir)) mkdir($dataDir, 0755, true);
 $file = $dataDir . '/chat.json';
-if (!file_exists($file)) file_put_contents($file, json_encode(['global'=>[]], JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
+$room = $_REQUEST['room'] ?? 'global';
+if (!file_exists($file)) file_put_contents($file, json_encode([$room=>[]], JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-function read_all($file){
+function read_all($file, $room){
     $j = @file_get_contents($file);
     $a = json_decode($j, true);
-    return is_array($a) ? $a : ['global'=>[]];
+    if (!is_array($a)) $a = [$room=>[]];
+    if (!isset($a[$room])) $a[$room] = [];
+    return $a;
 }
 function write_all($file, $arr){
     $tmp = $file . '.tmp';
@@ -28,6 +31,44 @@ function write_all($file, $arr){
 function translate_text($text, $source, $target) {
     $text = trim($text);
     if ($text === '' || $source === $target) return $text;
+    // Try Google Translate public endpoint first (no key, unofficial)
+    $googleUrl = 'https://translate.googleapis.com/translate_a/single?client=gtx'
+        . '&sl=' . urlencode($source ?: 'auto')
+        . '&tl=' . urlencode($target)
+        . '&dt=t&q=' . urlencode($text);
+    if (function_exists('curl_init')) {
+        $ch = curl_init($googleUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 6);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+        $res = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        if ($res && $code >= 200 && $code < 300) {
+            $j = json_decode($res, true);
+            if (is_array($j) && isset($j[0]) && is_array($j[0])) {
+                $pieces = [];
+                foreach ($j[0] as $seg) {
+                    if (isset($seg[0])) $pieces[] = $seg[0];
+                }
+                if (!empty($pieces)) return implode('', $pieces);
+            }
+        }
+    } else {
+        $res = @file_get_contents($googleUrl);
+        if ($res) {
+            $j = json_decode($res, true);
+            if (is_array($j) && isset($j[0]) && is_array($j[0])) {
+                $pieces = [];
+                foreach ($j[0] as $seg) {
+                    if (isset($seg[0])) $pieces[] = $seg[0];
+                }
+                if (!empty($pieces)) return implode('', $pieces);
+            }
+        }
+    }
+
+    // Fallback to LibreTranslate if Google didn't work
     $endpoint = 'https://libretranslate.com/translate';
     $payload = ['q'=>$text,'source'=>($source?:'auto'),'target'=>$target,'format'=>'text'];
     if (function_exists('curl_init')) {
@@ -53,13 +94,33 @@ function translate_text($text, $source, $target) {
             if (isset($j['translatedText'])) return $j['translatedText'];
         }
     }
+    // Fallback simple: small dictionary for offline/demo mode
+    $textLow = mb_strtolower(trim(strip_tags($text)));
+    $fallback = [
+        'es' => [
+            'hola' => ['en' => 'Hello', 'fr' => 'Bonjour', 'de' => 'Hallo'],
+            'adiós' => ['en' => 'Goodbye', 'fr' => 'Au revoir', 'de' => 'Auf Wiedersehen'],
+            'adios' => ['en' => 'Goodbye', 'fr' => 'Au revoir', 'de' => 'Auf Wiedersehen']
+        ],
+        'en' => [
+            'hello' => ['es' => 'Hola', 'fr' => 'Bonjour', 'de' => 'Hallo'],
+            'bye' => ['es' => 'Adiós', 'fr' => 'Au revoir', 'de' => 'Auf Wiedersehen']
+        ]
+    ];
+
+    // Try direct match
+    if (isset($fallback[$source][$textLow][$target])) return $fallback[$source][$textLow][$target];
+    // If source is auto or not found, try both supported sources
+    foreach (['es','en'] as $trySrc) {
+        if (isset($fallback[$trySrc][$textLow][$target])) return $fallback[$trySrc][$textLow][$target];
+    }
+
     return false;
 }
 
 if ($method === 'GET') {
-    $all = read_all($file);
     $room = trim((string)($_GET['room'] ?? 'global')) ?: 'global';
-    if (!isset($all[$room])) $all[$room] = [];
+    $all = read_all($file, $room);
     $msgs = $all[$room];
     $target = trim((string)($_GET['lang'] ?? ''));
     $modified = false;
@@ -107,7 +168,7 @@ if ($method === 'POST') {
         exit;
     }
     $room = trim((string)($data['room'] ?? 'global')) ?: 'global';
-    $all = read_all($file);
+    $all = read_all($file, $room);
     if (!isset($all[$room])) $all[$room] = [];
 
     $msg = [
@@ -117,6 +178,23 @@ if ($method === 'POST') {
         'time' => date('H:i'),
         'translations' => []
     ];
+
+    // Pre-compute translations for common target languages so recipients
+    // receive messages immediately in their selected language.
+    $targetLanguages = ['es','en','fr','de'];
+    foreach ($targetLanguages as $tlang) {
+        if ($tlang === $msg['lang']) {
+            $msg['translations'][$tlang] = $msg['text'];
+            continue;
+        }
+        $translated = translate_text($msg['text'], $msg['lang'] ?: 'auto', $tlang);
+        if ($translated !== false) {
+            $msg['translations'][$tlang] = $translated;
+        } else {
+            $msg['translations'][$tlang] = '';
+        }
+    }
+
     $all[$room][] = $msg;
     // mantener últimos 200 mensajes por sala
     if (count($all[$room]) > 200) $all[$room] = array_slice($all[$room], -200);

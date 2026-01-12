@@ -267,6 +267,18 @@ if (isset($_SESSION['nombre'])) {
             }
         }
 
+        // Migrar compras de sesión a BD si el usuario está logueado
+        if (!empty($_SESSION['user_id']) && !empty($_SESSION['purchased_books']) && is_array($_SESSION['purchased_books'])) {
+            if (!isset($m)) { require_once __DIR__ . '/../models/ModeloLibro.php'; $m = new Libro(); }
+            foreach ($_SESSION['purchased_books'] as $pb) {
+                $bookId = intval($pb['id'] ?? 0);
+                if ($bookId > 0) {
+                    $m->addPurchase(intval($_SESSION['user_id']), $bookId);
+                }
+            }
+            unset($_SESSION['purchased_books']);
+        }
+
         // 3) Si se pasó id por GET, intentar añadir ese libro (asegura aparición tras compra)
         $gid = intval($_GET['id'] ?? 0);
         if ($gid > 0) {
@@ -337,6 +349,21 @@ if (isset($_SESSION['nombre'])) {
                         <option value="fr">Français</option>
                         <option value="de">Deutsch</option>
                     </select>
+                    <label for="chat-room" style="margin-left:10px;">Libro:</label>
+                    <select id="chat-room">
+                        <?php
+                        if (!empty($books)) {
+                            foreach ($books as $b) {
+                                if (is_object($b)) $b = (array)$b;
+                                $id = $b['id'] ?? '';
+                                $titulo = htmlspecialchars($b['titulo'] ?? $b['title'] ?? 'Título desconocido');
+                                echo '<option value="' . htmlspecialchars($id) . '">' . $titulo . '</option>';
+                            }
+                        } else {
+                            echo '<option value="global">General</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <button id="chat-close-btn" style="padding:4px 8px;background:#dc3545;color:white;border:none;border-radius:4px;cursor:pointer;">Cerrar</button>
             </div>
@@ -359,6 +386,7 @@ if (isset($_SESSION['nombre'])) {
             const input = document.getElementById('chat-input');
             const sendBtn = document.getElementById('chat-send');
             const langSel = document.getElementById('chat-lang');
+            const roomSel = document.getElementById('chat-room');
 
             const UI = {
                 es: { placeholder: 'Escribe un mensaje...', send: 'Enviar', systemReady: 'Chat listo.' },
@@ -379,6 +407,7 @@ if (isset($_SESSION['nombre'])) {
                 sendBtn.textContent = t.send;
             }
             langSel.addEventListener('change', () => { setLang(langSel.value); load(); });
+            roomSel.addEventListener('change', load);
             setLang(langSel.value);
 
             function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -387,9 +416,11 @@ if (isset($_SESSION['nombre'])) {
                 const el = document.createElement('div');
                 el.style.padding = '4px 0';
                 const displayed = (msg.text_translated && msg.text_translated !== '') ? msg.text_translated : msg.text;
+                // mostrar el código de idioma correspondiente al texto mostrado:
+                const displayLang = (msg.text_translated && msg.text_translated !== '') ? (langSel.value || msg.lang || '') : (msg.lang || '');
                 el.innerHTML = '<small style="color:#888">' + (msg.time || '') + '</small> ' +
                     '<strong>' + (msg.user ? escapeHtml(msg.user) : 'Sistema') + ':</strong> ' +
-                    escapeHtml(displayed) + (msg.lang ? ' <em style="color:#888">(' + escapeHtml(msg.lang) + ')</em>' : '');
+                    escapeHtml(displayed) + (displayLang ? ' <em style="color:#888">(' + escapeHtml(displayLang) + ')</em>' : '');
                 chatBox.appendChild(el);
                 chatBox.scrollTop = chatBox.scrollHeight;
             }

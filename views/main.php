@@ -11,7 +11,9 @@ require_once 'header.php';
 <!-- Carrusel de Bootstrap -->
 <style>
 .carousel-indicators button {
-    background-color: transparent !important;
+    background-color: black !important;
+    display: inline-block;
+    padding-top: -30px;
 }
 .carousel-indicators .active {
     background-color: #333 !important; /* Un poco más claro para el activo */
@@ -24,7 +26,8 @@ require_once 'header.php';
         <?php foreach ($libros as $index => $libro): ?>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?php echo $index; ?>" 
                 <?php echo ($index === 0) ? 'class="active" aria-current="true"' : ''; ?> 
-                aria-label="Slide <?php echo ($index + 1); ?>"></button>
+                aria-label="Slide <?php echo ($index + 1); ?>">
+            </button>
         <?php endforeach; ?>
     </div>
     <div class="carousel-inner">
@@ -89,16 +92,21 @@ require_once 'header.php';
     </button>
 </div>
 
-<!-- Esta parte cambia de manera dinámica según la ruta. -->
-<!-- <?php
-
-ini_set('display_errors', 1);
-ini_set('controller_override', 1);
-error_reporting(E_ALL);
-
-// require_once 'content.php';
-?> -->
-
+<script>
+// Controles de teclado para el carrusel
+document.addEventListener('keydown', function(event) {
+    const carousel = document.getElementById('carouselExampleCaptions');
+    if (!carousel) return;
+    
+    if (event.key === 'ArrowLeft') {
+        const prevBtn = carousel.querySelector('[data-bs-slide="prev"]');
+        if (prevBtn) prevBtn.click();
+    } else if (event.key === 'ArrowRight') {
+        const nextBtn = carousel.querySelector('[data-bs-slide="next"]');
+        if (nextBtn) nextBtn.click();
+    }
+});
+</script>
 
 <!-- Esta parte es fija en todas las páginas -->
 <?php
