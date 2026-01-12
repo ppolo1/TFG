@@ -11,12 +11,11 @@ require_once 'header.php';
 <!-- Carrusel de Bootstrap -->
 <style>
 .carousel-indicators button {
-    background-color: black !important;
-    display: inline-block;
-    padding-top: -30px;
+    background-color: #333 !important;
+    display: flex;
 }
 .carousel-indicators .active {
-    background-color: #333 !important; /* Un poco más claro para el activo */
+    background-color: #000000 !important; /* Un poco más claro para el activo */
 }
 </style>
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">

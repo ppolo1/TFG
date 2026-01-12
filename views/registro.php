@@ -23,7 +23,7 @@ require_once 'header.php';
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label"><strong>Email:</strong></label>
-                <input type="email" id="email" name="email" class="form-control" required>
+                <input type="email" id="email" name="email" class="form-control" pattern="[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+" title="El email debe tener el formato: letras@letras.com" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label"><strong>Password:</strong></label>

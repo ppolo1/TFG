@@ -11,7 +11,7 @@
         "id": 2,
         "nombre": "Sarah",
         "apellido": "Gonzalez",
-        "email": "gogkergm@ninc",
+        "email": "gogkergm@ninc.com",
         "passwd": "1234",
         "is_admin": 0
     },
